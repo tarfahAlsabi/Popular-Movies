@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="no_connection"> can\'t connect to the internet </string>
+
+
+    <string name="sort_by_key">sort_by_key</string>
+
+    <string name="POPULAR">Popular Movies </string>
+    <string name="TOP_RATED">Top rated movies </string>
+    <string name="settings">Settings</string>
+    <string name="sort_by_pref_title">Sort By</string>
+
+    <string-array name="sort_by_pref_entry_array">
+        <item>@string/POPULAR</item>
+        <item>@string/TOP_RATED</item>
+    </string-array>
+
+    <string-array name="sort_by_pref_values_array">
+        <item> top_rated </item>
+        <item> popular </item>
+    </string-array>
+
+
+    <string name="title_activity_settings">Settings</string>
+
+
+    <string name="title">Title:</string>
+    <string name="avgVote">Average Vote:</string>
+    <string name="plotSynopsis">The Story:</string>
+    <string name="releaseDate">Release Date:</string>
+    <string name="posterLabel">Movie Poster:</string>
+    <string name="posterDes"> the movie poster </string>
+</resources>
