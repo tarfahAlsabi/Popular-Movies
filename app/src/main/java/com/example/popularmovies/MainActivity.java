@@ -94,12 +94,18 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(movieInfos);
             if(moviesList != null || !moviesList.isEmpty())
                 moviesList.clear();
-            moviesList.addAll(movieInfos);
+            if(movieInfos == null ){
+                noInternet.setVisibility(View.VISIBLE);
+            }
+            else {
+                moviesList.addAll(movieInfos);
 
-            adapter.setMovies(movieInfos);
+                adapter.setMovies(movieInfos);
 
-            Log.i("onPost",moviesList.size()+"");
-            adapter.notifyDataSetChanged();
+                Log.i("onPost", moviesList.size() + "");
+                adapter.notifyDataSetChanged();
+                noInternet.setVisibility(View.INVISIBLE);
+            }
             progressBar.setVisibility(View.INVISIBLE);
         }
     }

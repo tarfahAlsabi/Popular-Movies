@@ -16,8 +16,8 @@
     </string-array>
 
     <string-array name="sort_by_pref_values_array">
-        <item> top_rated </item>
         <item> popular </item>
+        <item> top_rated </item>
     </string-array>
 
 
