@@ -15,6 +15,8 @@
  */
 package com.example.popularmovies;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.util.Log;
 
@@ -28,20 +30,33 @@ import java.util.Scanner;
 
 public class NetworkUtils {
 
-    final static String MOVIEDB_TOP_RATED_BASE_URL = "https://api.themoviedb.org/3/movie/top_rated";
-    final static String MOVIEDB_POPULAR_BASE_URL = "https://api.themoviedb.org/3/movie/popular";
+    final static String baseUrl= "https://api.themoviedb.org/3/movie/";
+    final static String MOVIEDB_TOP_RATED_BASE_URL = "top_rated";
+    final static String MOVIEDB_POPULAR_BASE_URL = "popular";
+    final static String MOVIEDB_REVIEWS_BASE_URL = "/reviews";
+    final static String MOVIEDB_VIDEOS_BASE_URL = "/videos";
 
     final static String API_KEY = "3c4c336dcaa78cd2e536a35da79d791e";
     final static String API_KEY_QUERY = "api_key";
 
 
-    public static URL buildUrl(String moviesType) {
-        String MOVIEDB_BASE_URL;
-        if(moviesType.equals("top_rated")){
-            MOVIEDB_BASE_URL= MOVIEDB_TOP_RATED_BASE_URL;
+    public static URL buildUrl(Context context, int movieID , String moviesType) {
+        String MOVIEDB_BASE_URL = baseUrl;
+        if(movieID == -1 ) {
+            if (moviesType.equals("top_rated")) {
+                MOVIEDB_BASE_URL = MOVIEDB_BASE_URL + MOVIEDB_TOP_RATED_BASE_URL;
+            } else {
+                MOVIEDB_BASE_URL = MOVIEDB_BASE_URL+  MOVIEDB_POPULAR_BASE_URL;
+            }
         }else {
-            MOVIEDB_BASE_URL = MOVIEDB_POPULAR_BASE_URL;
+            if(moviesType.equals(context.getString(R.string.reviews))){
+                MOVIEDB_BASE_URL = MOVIEDB_BASE_URL+  movieID +MOVIEDB_REVIEWS_BASE_URL;
+            }else{
+                MOVIEDB_BASE_URL =MOVIEDB_BASE_URL + movieID +MOVIEDB_VIDEOS_BASE_URL;
+            }
         }
+
+        Log.i("finalUrl",MOVIEDB_BASE_URL);
         Uri builtUri = Uri.parse(MOVIEDB_BASE_URL).buildUpon()
                 .appendQueryParameter(API_KEY_QUERY, API_KEY)
                 .build();
@@ -57,6 +72,9 @@ public class NetworkUtils {
 
 
     public static String getResponseFromHttpUrl(URL url) throws IOException {
+        if(url == null){
+            return null;
+        }
         Log.i("url",""+ url.getPath());
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         try {
@@ -68,7 +86,7 @@ public class NetworkUtils {
             boolean hasInput = scanner.hasNext();
             if (hasInput) {
                 String res =scanner.next() ;
-                Log.i("internet request",res);
+//                Log.i("internet request",res);
                 return res;
             } else {
                 return null;
@@ -77,4 +95,5 @@ public class NetworkUtils {
             urlConnection.disconnect();
         }
     }
+
 }

@@ -11,7 +11,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
-
     ArrayList<movieInfo> movies;
     Context context;
 
@@ -29,7 +28,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
-        Log.i("the adapter binding",holder.getAdapterPosition() + "");
         holder.bind(position);
     }
 
@@ -66,11 +64,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             Log.i("inside the listener",movie.toString());
 
             Intent intent= new Intent(context, viewMovieInfo.class);
+            intent.putExtra("movieID",movie.id);
             intent.putExtra("movieName",movie.title);
             intent.putExtra("movieDate",movie.release_date);
             intent.putExtra("movieOverview",movie.overview);
             intent.putExtra("movieAvgRate",movie.vote_average);
             intent.putExtra("moviePoster",movie.poster);
+            intent.putExtra("movieIsFavorite",movie.isfavorite);
 
             context.startActivity(intent);
         }

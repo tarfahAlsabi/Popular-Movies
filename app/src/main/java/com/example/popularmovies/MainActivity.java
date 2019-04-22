@@ -17,10 +17,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.popularmovies.Settings.SettingsActivity;
+import com.example.popularmovies.data.Database;
+import com.example.popularmovies.data.MovieModel;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     TextView noInternet;
@@ -44,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
         String sortByValue = sharedPreferences.getString(getString(R.string.sort_by_key),"top_rated");
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+
         GridLayoutManager layoutManager = new GridLayoutManager(this, NUMBER_OF_COLUMNS);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -74,7 +77,16 @@ public class MainActivity extends AppCompatActivity {
             if(sortType.isEmpty()){
                 return null;
             }
-            URL requestURL = NetworkUtils.buildUrl(sortType);
+            if(sortType.equals(getString(R.string.favorite))){
+                Database database= Database.getDatabase(context);
+                ArrayList<movieInfo> movieInfos = new ArrayList<>();
+                List<MovieModel> movieModels= database.moviesDAO().getAllMovies();
+                for (MovieModel movie: movieModels) {
+                    movieInfos.add(movie.getMovie());
+                }
+                return movieInfos;
+            }
+            URL requestURL = NetworkUtils.buildUrl(context,-1,sortType);
             try{
                 String requestResult = NetworkUtils.getResponseFromHttpUrl(requestURL);
                 if(requestResult == null || requestResult.isEmpty()){

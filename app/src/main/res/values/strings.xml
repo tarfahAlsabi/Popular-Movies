@@ -13,11 +13,27 @@
     <string-array name="sort_by_pref_entry_array">
         <item>@string/POPULAR</item>
         <item>@string/TOP_RATED</item>
+        <item>@string/favorite</item>
     </string-array>
 
+    <string name="popular">popular </string>
+    <string name="top_rated">top_rated</string>
+    <string name="favorite">favorite</string>
+
+    <string name="reviews">reviews</string>
+    <string name="videos">videos</string>
+
+    <string name="Trailers">Trailers</string>
+    <string name="Reviews">Reviews</string>
+
+
+    <string name="favoriteMark">mark as favorite</string>
+    <string name="unFavoriteMark">remove from favorite </string>
+
     <string-array name="sort_by_pref_values_array">
-        <item> popular </item>
-        <item> top_rated </item>
+        <item>@string/popular </item>
+        <item>@string/top_rated </item>
+        <item>@string/favorite</item>
     </string-array>
 
 
